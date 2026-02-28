@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topcaffeind Coffee</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #faf7f3, #eee3d4);
+    color: #8d6748;
+}
+
+/* HERO */
+.hero {
+    position: relative;
+    height: 330px;
+    background: url('A.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, rgba(0,0,0,0), #f4ece0 100%);
+}
+
+.hero h1,
+.hero p {
+    position: relative;
+    z-index: 1;
+}
+
+.fancy-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.hero p {
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+/* MAIN */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+    padding: 5.5rem 2rem 2rem;
+}
+
+.product {
+    flex: 1 1 100%;
+    max-width: 1100px;
+    height: 480px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    color: white;
+    text-decoration: none;
+    transition: transform 0.3s ease, outline 0.3s ease;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    position: relative;
+}
+
+/* HOVER EFFECT WITH RIM COLOR */
+.product:hover {
+    transform: translateY(-10px) scale(1.02);
+    outline: 3px solid #c59d1af1;  /* bright rim color */
+    outline-offset: -3px;        /* hugs the product edges */
+}
+
+/* PRODUCT COLORS */
+.product.A { background: linear-gradient(135deg, #5d4037, #3e2723); }
+.product.B { background: linear-gradient(135deg, #8d6748, #6d4c41); }
+.product.C { background: linear-gradient(135deg, #a1887f, #6d4c41); }
+.product.D { background: linear-gradient(135deg, #3e2723, #1b1b1b); }
+
+@media (min-width: 768px) {
+    .product { flex: 1 1 45%; }
+}
+@media (min-width: 1200px) {
+    .product { flex: 1 1 22%; }
+}
+
+/* BOTTOM IMAGE */
+.bottom-banner {
+    position: relative;
+    width: 100vw;
+    height: 520px;
+    margin: -150px 0 0 0;
+    background: url('B.jpg') center/cover no-repeat;
+    z-index: -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.bottom-banner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(to bottom, #f4ece0 0%, rgba(0,0,0,0) 100%);
+}
+
+.bottom-banner span {
+    position: relative;
+    z-index: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: #5a422a;
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+    <h1 class="fancy-header">Topcaffeind Coffee</h1>
+    <p>Welcome</p>
+</section>
+
+<main>
+    <a href="A.html" class="product A">Ground Coffee</a>
+    <a href="B.html" class="product B">Decaf Blends</a>
+    <a href="C.html" class="product C">Coffee Beans</a>
+    <a href="about.html" class="product D">About</a>
+</main>
+
+<section class="bottom-banner">
+    <span>Discover Premium</span>
+</section>
+
+<footer>© 2026 Topcaffeind</footer>
+
+</body>
+</html>

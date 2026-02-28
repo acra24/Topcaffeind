@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout – Topcaffeind</title>
+<style>
+body {
+  font-family: Poppins, sans-serif;
+  background: #f4ece0;
+  color: #000;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Text & box styles */
+.checkout-intro {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  font-size: 1.1rem;
+}
+
+.checkout-box {
+  background: #fff3e0;
+  max-width: 500px;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+h1 { margin-bottom: 1rem; }
+ul { list-style: none; padding: 0; }
+button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  background: #96742a;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<div class="checkout-intro">
+  <h2>Thank you!</h2>
+  <p>Please review your order before payment</p>
+</div>
+
+<div class="checkout-box">
+  <h1>Checkout</h1>
+  <ul id="checkout-items"></ul>
+  <h3>Total: £<span id="checkout-total">0.00</span></h3>
+  <button id="pay-btn">Pay Now</button>
+</div>
+
+<script>
+// Load cart from localStorage
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+const list = document.getElementById('checkout-items');
+const totalEl = document.getElementById('checkout-total');
+
+let total = 0;
+if(cart.length === 0){
+  list.innerHTML = "<li>Your cart is empty.</li>";
+}else{
+  cart.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = `${item.name} – £${item.price.toFixed(2)}`;
+    list.appendChild(li);
+    total += item.price;
+  });
+}
+totalEl.textContent = total.toFixed(2);
+
+// Stripe checkout via Node.js server
+document.getElementById('pay-btn').addEventListener('click', async () => {
+  if(cart.length === 0){
+    alert("Your cart is empty!");
+    return;
+  }
+
+  try {
+    // Send cart to server
+    const response = await fetch('http://localhost:4242/create-checkout-session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cart })
+    });
+
+    const data = await response.json();
+
+    if(data.url){
+      // Clear cart before redirect
+      localStorage.setItem('cart', JSON.stringify([]));
+      // Redirect to Stripe Checkout
+      window.location.href = data.url;
+    } else {
+      alert('Error creating Stripe session.');
+    }
+
+  } catch(err){
+    console.error(err);
+    alert('Payment failed. See console.');
+  }
+});
+</script>
+
+</body>
+</html>
